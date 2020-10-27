@@ -19,6 +19,11 @@ export class FindUserIdDto {
   public id: string;
 }
 
+export class FindUserEmailDto {
+  @IsString()
+  public email: string;
+}
+
 export class FindUserNameDto {
   @IsString()
   public nickName: string;

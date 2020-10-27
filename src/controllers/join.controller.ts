@@ -31,45 +31,43 @@ class JoinController {
       }
       
       const hashedPassword = await bcrypt.hash(userData.password, 10);
-      console.log(hashedPassword);
 
       const obejctData = {
         email : userData.email,
         password :  hashedPassword
       };
-      //Object.values
-      const userJoinData: PostgreSqlReturn = await this.joinService.joinUser(Object.values(obejctData));
-      
+
+      const userJoinData: PostgreSqlReturn = await this.joinService.joinUser(Object.values(obejctData));    
       const tokenData = this.authService.createToken(userJoinData.rows[0]);
       const cookie = this.authService.createCookie(tokenData);
 
       res.setHeader('Set-Cookie', [cookie]);
-      res.status(200).json({ data: userJoinData.rows[0], message: 'login' });
+      cRes.sendJson(res, { data: userJoinData.rows[0], message: 'login' });
     } catch (error) {
       next(error);
     }
   }
 
   /**
-   * findUserId
-   * 아이디가 있는지 조회합니다.
+   * findUserEmail
+   * 이미 사용중인 이메일인지 조회합니다.
    * 
    * @param req 
    * @param res 
    * @param next 
    */
-  public findUserId = async (req: Request, res: Response, next: NextFunction) => {
+  public findUserEmail = async (req: Request, res: Response, next: NextFunction) => {
 
     const userData: FindUserIdDto = req.body;
 
     try {
-      const data: Array<any> = await this.joinService.findUserId(Object.values(userData));
-      if(data.length > 0){
-        cRes.sendErrorJson(res, 602 , '이미 사용중인 아이디입니다.');
+      const data: PostgreSqlReturn = await this.joinService.findUserEmail(Object.values(userData));
+      if(data.rowCount > 0){
+        cRes.sendErrorJson(res, 601 , '이미 사용중인 이메일입니다.' , 'U001');
         return;
       }
 
-      cRes.sendJson(res, {});      
+      cRes.sendJson(res, {});
     } catch (error) {
       next(error);
     }
