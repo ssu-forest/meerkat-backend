@@ -63,7 +63,7 @@ class UrlService {
         user_state, 
         user_nm
       )VALUES($1 , now() , $2 , '01' , '')
-      RETURNING user_id AS id , user_email AS email, user_state AS status
+      RETURNING user_id AS id , user_email AS email, user_state AS state
       `;
     const db = new DbService();
     let queryData = await db.query(sql, sqlValue);

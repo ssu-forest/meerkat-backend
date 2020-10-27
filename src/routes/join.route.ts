@@ -15,7 +15,7 @@ class JoinRoute implements Route {
 
   private initializeRoutes() {
     this.router.post(`${this.path}/user`, validationMiddleware(dto.CreateUserDto) , this.joinController.userJoin); // 회원가입
-    this.router.post(`${this.path}/user/find-id`, validationMiddleware(dto.FindUserIdDto) , this.joinController.findUserId); // 아이디 조회
+    this.router.post(`${this.path}/user/find-id`, validationMiddleware(dto.FindUserEmailDto) , this.joinController.findUserEmail); // 이메일 조회
   }
 }
 

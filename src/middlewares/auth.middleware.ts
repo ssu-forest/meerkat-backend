@@ -2,7 +2,6 @@ import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import HttpException from '../exceptions/HttpException';
 import { DataStoredInToken, RequestWithUser } from '../interfaces/auth.interface';
-import userModel from '../models/users.model';
 
 function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
   const cookies = req.cookies;
@@ -12,15 +11,12 @@ function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction)
 
     try {
       const verificationResponse = jwt.verify(cookies.Authorization, secret) as DataStoredInToken;
-      const userId = verificationResponse.id;
-      const findUser = userModel.find(user => user.id === userId);
-
-      if (findUser) {
-        req.user = findUser;
-        next();
-      } else {
-        next(new HttpException(401, 'Wrong authentication token'));
-      }
+      req.user = {
+        id : verificationResponse.id, 
+        email : verificationResponse.email, 
+        state : verificationResponse.state
+      };
+      next();
     } catch (error) {
       next(new HttpException(401, 'Wrong authentication token'));
     }
