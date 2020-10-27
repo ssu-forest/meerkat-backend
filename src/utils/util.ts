@@ -117,23 +117,4 @@ export const pagelist = (curPage : any , totalPageCount : any) => {
     
 }
 
-export const codeList = (code_id : any) => {
-  return new Promise(async function (resolve, reject){
-    let sql = ` 
-      SELECT 
-        idx, 
-        code_id AS "codeId", 
-        code_value AS "codeValue", 
-        name 
-      FROM codemap  
-      WHERE code_id = ?
-    `;
-    let sqlValue = code_id;
-
-    resolve(await db.query(sql, sqlValue));
-  });
-}
-
-
-
 

@@ -1,9 +1,9 @@
 import HttpException from '../exceptions/HttpException';
-import * as db from '../lib/db';
+import DbService from '../lib/postgre.db';
 
 class ViewsService {
 
-  public async univView(param: Array<string>): Promise<any> {
+  public async boardView(param: Array<string>): Promise<any> {
     const sqlValue = param;
     const sql = `
       SELECT 
@@ -21,6 +21,7 @@ class ViewsService {
       FROM universitylist.universitylist
       WHERE idx = ?`;
 
+    const db = new DbService();
     let queryData = await db.query(sql, sqlValue);
     if(queryData.length == 0){
       throw new HttpException(602, '없는 정보를 조회했어요.');

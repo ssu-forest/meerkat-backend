@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { codeList , departmentCodeTrans , weeklyCodeTrans } from '../utils/util';
+import {departmentCodeTrans , weeklyCodeTrans } from '../utils/util';
 import indexService from '../services/index.service';
 import HttpException from '../exceptions/HttpException';
 import * as checkParam  from '../utils/custom_check_param';
