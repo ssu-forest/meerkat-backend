@@ -7,13 +7,13 @@ class ViewsController {
   
   public viewsService = new viewsService();
 
-  public univView = async (req: Request, res: Response, next: NextFunction) => {
+  public boardView = async (req: Request, res: Response, next: NextFunction) => {
     const body : object = {
       id : req.params['id']
     };
 
     try {
-      const data = await this.viewsService.univView(Object.values(body));
+      const data = await this.viewsService.boardView(Object.values(body));
       cRes.sendJson(res, data[0]);      
     } catch (error) {
       next(error);

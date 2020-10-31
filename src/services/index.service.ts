@@ -1,5 +1,5 @@
-import * as db from '../lib/db';
 import {departmentCodeTrans , mapCodeTrans} from '../utils/util'
+import DbService from '../lib/postgre.db';
 
 class IndexService {
 
@@ -57,6 +57,7 @@ class IndexService {
     //SQL 쿼리문 종료
 
     const sqlValue = mapCode.concat(departmentCode).concat(weeklyCode);
+    const db = new DbService();
     const queryData = await db.query(sql, sqlValue);
     
     return queryData;
