@@ -7,7 +7,6 @@ import ViewsRoute from './routes/view.route';
 import JoinRoute from './routes/join.route';
 import BoardRoute from './routes/board.route';
 
-import testRoute from './routes/test.route';
 import validateEnv from './utils/validateEnv';
 
 
@@ -20,10 +19,7 @@ const app = new App([
   new AuthRoute(),
   new BoardRoute(),
   new IndexRoute(),
-  new JoinRoute(),
-
-  // 프론트 개발용 테스트
-  new testRoute(),
+  new JoinRoute()
 ]);
 
 app.listen();

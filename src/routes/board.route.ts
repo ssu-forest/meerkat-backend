@@ -12,7 +12,7 @@ class BoardRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/:category`, this.boardController.boardList); //메인페이지
+    //this.router.get(`${this.path}/:category`, this.boardController.boardList); //메인페이지
   }
 }
 
