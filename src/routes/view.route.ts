@@ -14,7 +14,7 @@ class ViewRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/:id`, validationMiddleware(dto.GetView),this.viewsController.univView); // 대학 상세 정보 페이지 보기 
+    this.router.get(`${this.path}/:id`, validationMiddleware(dto.GetView),this.viewsController.boardView); // 대학 상세 정보 페이지 보기 
   }
 }
 
