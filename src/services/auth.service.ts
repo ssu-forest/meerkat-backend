@@ -24,7 +24,7 @@ class AuthService {
     return createUserData;
   }
 
-  public async login(userData: CreateUserDto): Promise<{ cookie: string, findUser: User }> {
+  public async login(userData: CreateUserDto): Promise<{ auth: string, findUser: User }> {
     if (isEmptyObject(userData)) throw new HttpException(400, "You're not userData");
 
     //DAO로 빼야하는 부분이지만 일단 임의로 처리함...
@@ -52,8 +52,9 @@ class AuthService {
     };
 
     const tokenData = this.createToken(findUser);
-    const cookie = this.createCookie(tokenData);
-    return { cookie, findUser };
+    const auth = tokenData.token;
+    //const cookie = this.createCookie(tokenData);
+    return { auth, findUser };
   }
 
   public async logout(userData: User): Promise<User> {
