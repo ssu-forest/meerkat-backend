@@ -38,7 +38,7 @@ class BoardService {
       LEFT JOIN ssu_forest.meerkat_comment AS mc
       ON mb.board_id = mc.board_id
       WHERE mb.category = $1
-      AND board_state = 01
+      AND board_state = '01'
       GROUP BY mb.board_id
     )
     SELECT 	

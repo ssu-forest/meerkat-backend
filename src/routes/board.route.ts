@@ -13,7 +13,7 @@ class BoardRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/:category`, this.boardController.boardList); //
+    this.router.get(`${this.path}/:category`, this.boardController.boardList); //보드 정보
     this.router.get(`${this.path}/:category:/page`, this.boardController.boardList); //
     this.router.post(`${this.path}/write`, authMiddleware,  this.boardController.boardWrite); //
     this.router.post(`${this.path}/modify/:boardId`, authMiddleware,  this.boardController.boardModify); //
