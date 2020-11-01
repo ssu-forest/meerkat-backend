@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
+import { PostgreSqlReturn } from '../interfaces/postgre.interface';
 import BoardService from '../services/board.service';
 import HttpException from '../exceptions/HttpException';
 import * as checkParam  from '../utils/custom_check_param';
 import * as cRes from '../utils/custom_render';
+
 
 class BoardController {
   
@@ -22,15 +24,11 @@ class BoardController {
   }
 
   public boardList = async (req: Request, res: Response, next: NextFunction) => {
-    const category: number = Number(req.params['category']) || 0
-
-    console.log(category);
+    const category: number = Number(req.params['category']) || 0;
 
     try {
-      const data = await this.boardService.boardlist([category]);
-
-      console.log(data);
-      cRes.sendJson(res, data.rows);      
+      const data: PostgreSqlReturn = await this.boardService.boardlist([category]);
+      cRes.sendJson(res, data.jsondata);
     } catch (error) {
       next(error);
     }

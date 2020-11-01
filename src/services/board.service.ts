@@ -13,23 +13,35 @@ class BoardService {
 
     const sqlValue = param;
     const sql = `
-      SELECT 
-        board_id,
-        board_title, 
-        board_contents, 
-        category, 
-        write_dt, 
-        modify_dt, 
-        view_count, 
-        like_count, 
-        user_id 
-      FROM ssu_forest.meerkat_board
-      WHERE category = $1`;
+      SELECT
+        json_agg
+        ( 
+          json_build_object(
+            'id',mb.board_id,
+            'title' , mb.board_title,
+            'contents', mb.board_contents ,
+            'writeDt',mb.write_dt ,
+            'modifyDt', mb.modify_dt ,
+            'viewCount', mb.view_count ,
+            'likeCount',mb.like_count ,
+            'user', json_build_object(
+              'id' , mm.user_id,
+              'email', mm.user_email
+            ) 
+          )
+        ) AS jsondata
+      FROM ssu_forest.meerkat_board AS mb
+      JOIN ssu_forest.meerkat_member AS mm
+      ON mb.user_id = mm.user_id
+      WHERE mb.category = $1`;
 
     const db = new dbService();
     const queryData = await db.query(sql, sqlValue);
 
-    return queryData;
+    console.log(queryData.rows[0]);
+    console.log(sqlValue);
+
+    return queryData.rows[0];
   }
 
 }
