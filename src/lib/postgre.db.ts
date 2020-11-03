@@ -6,7 +6,7 @@ const config = {
   password: String(process.env.DB_PASSWORD), 
   host: String(process.env.DB_HOST),
   port: Number(process.env.DB_PORT), //env var: PGPORT
-  max: 20, // max number of clients in the pool
+  max: 50, // max number of clients in the pool
   idleTimeoutMillis: 20000, // how long a client 
 };
 
