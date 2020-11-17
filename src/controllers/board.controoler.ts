@@ -26,10 +26,6 @@ class BoardController {
 
   public boardList = async (req: Request, res: Response, next: NextFunction) => {
     const category: string = req.params['category'] || 'free';
-
-    const body: object = {
-      
-    }
     try {
       const data: PostgreSqlReturn = await this.boardService.boardList([category]);
       cRes.sendJson(res, data.jsondata);
@@ -89,6 +85,21 @@ class BoardController {
       next(error);
     }
   }
+
+  public boardImgUpload = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    
+    console.log(req.files);
+
+    try {
+      //let data: PostgreSqlReturn = await this.boardService.boardDelete(Object.values(body));
+      //data.message = 'Delete Success';
+
+      cRes.sendJson(res, req.files);
+    } catch (error) {
+      next(error);
+    }
+  }
+
 
 
   

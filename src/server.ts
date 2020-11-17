@@ -6,7 +6,7 @@ import UsersRoute from './routes/users.route';
 import ViewsRoute from './routes/view.route';
 import JoinRoute from './routes/join.route';
 import BoardRoute from './routes/board.route';
-
+import CommentRoute from './routes/comment.route';
 import validateEnv from './utils/validateEnv';
 
 
@@ -18,6 +18,7 @@ const app = new App([
   new UsersRoute(),
   new AuthRoute(),
   new BoardRoute(),
+  new CommentRoute(),
   new IndexRoute(),
   new JoinRoute()
 ]);
