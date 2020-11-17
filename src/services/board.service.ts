@@ -84,8 +84,6 @@ class BoardService {
 
   public async boardModify(param: Array<string>): Promise<any> {
     const sqlValue = param;
-
-    console.log(sqlValue);
     const sql = `
       UPDATE ssu_forest.meerkat_board SET 
         board_title = $3,
@@ -118,6 +116,39 @@ class BoardService {
     if(queryData.rowCount == 0) throw new HttpException(601, '삭제 할 수 없는 게시글입니다.');
     return queryData.rows[0];
   }
+
+
+  public async boardLike(param: Array<string>): Promise<any> {
+    const sqlValue: any = param;
+    const sql = `
+      SELECT user_id FROM ssu_forest.meerkat_board_like
+      WHERE board_id = $1
+      AND user_id = $2
+    `;
+    const db = new dbService();
+    const queryData = await db.query(sql, sqlValue);
+
+    if(queryData.rowCount == 0){
+      const sql2 = `
+        INSERT INTO ssu_forest.meerkat_board_like(board_id, user_id, write_dt)
+        VALUES ($1 , $2 , $3, now())`;
+      const queryData2 = await db.query(sql2, sqlValue);
+    }else{
+      const sql2 = `
+        DELETE ssu_forest.meerkat_board_like 
+        WHERE board_id = $1
+        AND user_id = $2`;
+
+      const queryData2 = await db.query(sql2, sqlValue);
+    }
+
+    
+
+
+    
+    return queryData.rows[0];
+  }
+
 
 
 
