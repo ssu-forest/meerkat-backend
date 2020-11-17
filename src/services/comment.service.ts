@@ -23,8 +23,7 @@ class CommentService {
         modify_dt, 
         comment_parent_id
       )
-      VALUES ($1, $2, $3, now(), now(), 0)
-      `;
+      VALUES ($1, $2, $3, now(), now(), 0)`;
     const db = new dbService();
     const queryData = await db.query(sql, sqlValue);
     return queryData.rows[0];

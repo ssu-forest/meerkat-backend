@@ -88,13 +88,13 @@ class BoardController {
 
   public boardImgUpload = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     
-    console.log(req);
+    console.log(req.files);
 
     try {
       //let data: PostgreSqlReturn = await this.boardService.boardDelete(Object.values(body));
       //data.message = 'Delete Success';
 
-      cRes.sendJson(res, {});
+      cRes.sendJson(res, req.files);
     } catch (error) {
       next(error);
     }
